@@ -1,24 +1,35 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import {
+  TextInput
+} from "react-native-paper";
 
-export default function TabTwoScreen() {
+
+export default function TabTwoScreen({navigation}) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContentContainerStyle}
+        keyboardShouldPersistTaps="handled"
+      >
+        <TextInput label="Text2" placeholder="Text2" style={styles.textInput} mode="outlined"/>
+        <TouchableOpacity onPress={()=>navigation()?.navigate("Root2", {screen: "TabOne"})}><Text>Tab One</Text></TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollViewContentContainerStyle: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: "yellow"
   },
   title: {
     fontSize: 20,
@@ -29,4 +40,11 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  textInput: {
+    height: 50,
+    width: 150,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: "white",
+  }
 });

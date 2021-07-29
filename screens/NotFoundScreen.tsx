@@ -1,28 +1,37 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import {
+  TextInput
+} from "react-native-paper";
 
 import { RootStackParamList } from '../types';
 
 export default function NotFoundScreen({
   navigation,
-}: StackScreenProps<RootStackParamList, 'NotFound'>) {
+}: StackScreenProps<RootStackParamList>) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity onPress={() => navigation.replace('Root')} style={styles.link}>
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.container}>
+       <ScrollView
+        contentContainerStyle={styles.scrollViewContentContainerStyle}
+        keyboardShouldPersistTaps="handled"
+       >
+        <Text>First screen</Text>
+        <TextInput label="Text" placeholder="Text" style={styles.textInput} mode="outlined" />
+        <TouchableOpacity onPress={()=>navigation.navigate("Root2", undefined)}><Text>Tab2</Text></TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollViewContentContainerStyle: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "yellow",
     padding: 20,
   },
   title: {
@@ -37,4 +46,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  textInput: {
+    height: 50,
+    width: 150,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: "white",
+  }
 });
